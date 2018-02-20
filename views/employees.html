@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Employees</title>
+</head>
+<body>
+  <h1>Employees and Jobs</h1>
+  <form method='POST' action='/employees'>
+    <input name='email' placeholder='Email address' />
+    <select name='JobId'>
+      <option>None</option>
+      {% for job in jobs %}
+        <option value='{{ job.id }}'>{{ job.name }}</option>
+      {% endfor %}
+    </select>
+    <button>Create Employee</button>
+  </form>
+  <ul>
+    {% for employee in employees %}
+    <li>
+      {{ employee.email }}
+      <br />
+      Email Provider: {{ employee.emailProvider }}
+      <br />
+      Name: {{ employee.name }}
+    </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
