@@ -3,7 +3,11 @@ const { Sequelize } = conn;
 
 const Employee = conn.define('employee', {
   email: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    // better to validate here, or in hmtl form? both?
+    validate: {
+      isEmail: true
+    }
   }
 }, {
     getterMethods: {

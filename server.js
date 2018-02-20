@@ -31,10 +31,6 @@ app.use((req, res, next) => {
   Employee.findAll({})
     .then(employees => {
       res.locals.employeeCount = employees.length;
-      // const managerCount = employees.reduceRight((sum, employee) => {
-      //   return sum + employee.nicknames.length;
-      // }, 0);
-      // res.locals.nicknameCount = nicknameCount;
       next();
     })
     .catch(next);
