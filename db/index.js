@@ -1,7 +1,11 @@
 const conn = require('./conn');
+const db = require('./db');
+const { Employee, Job } = db.models;
 
 const Employee = require('./Employee');
 const Job = require('./Job');
+
+const app = require('express').Router();
 
 Employee.belongsTo(Job);
 Job.hasMany(Employee);
@@ -28,23 +32,28 @@ const seed = () => {
       elizabeth.setJob(jrDev),
       jojo.setJob(jrDev)
     ]);
-  // })
-  // .then(() => {
-  //   return Job.findOne({
-  //     where: {
-  //       name: 'Jr. Dev.'
-  //     },
-  //     include: [
-  //       Employee
-  //     ]
-  //   });
-  // })
-  // .then(job => {
-  //   console.log(job.employees.map(employee => employee.email).join(', '));
   });
 };
 
+app.get('/employees', (req, res, next) => {
+  Promise.all([
+    Employee.findAll({
+      include: [ Job ]
+    }),
+    Job.findAll({})
+  ])
+  .then(([employees, jobs]) => res.render('employees', { employees, jobs }))
+  .catch(next);
+});
+
+app.post('/employees', (req, res, next) => {
+  Employee.createFromForm(req.body)
+    .then(() => res.redirect('/employees'))
+    .catch(next);
+});
+
 module.exports = {
+  app,
   sync,
   seed,
   models: {

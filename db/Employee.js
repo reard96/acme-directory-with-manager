@@ -4,6 +4,11 @@ const { Sequelize } = conn;
 const Employee = conn.define('employee', {
   email: {
     type: Sequelize.STRING
+  // },
+  // manager: {
+  //   type: Sequelize.STRING,
+  //   defaultValue: '',
+  //   set:
   }
 }, {
     getterMethods: {
@@ -19,5 +24,12 @@ const Employee = conn.define('employee', {
       }
     }
 });
+
+Employee.createFromForm = function(body) {
+  if (body.jobId === '-1') {
+    delete body.jobId;
+  }
+  return this.create(body);
+};
 
 module.exports = Employee;
