@@ -4,11 +4,6 @@ const { Sequelize } = conn;
 const Employee = conn.define('employee', {
   email: {
     type: Sequelize.STRING
-  // },
-  // manager: {
-  //   type: Sequelize.STRING,
-  //   defaultValue: '',
-  //   set:
   }
 }, {
     getterMethods: {

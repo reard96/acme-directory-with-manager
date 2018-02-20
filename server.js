@@ -1,12 +1,12 @@
 const db = require('./db');
-const { Employee, Job } = db.models;
-
-const nunjucks = require('nunjucks');
-nunjucks.configure({ noCache: true });
+const { Employee } = db.models;
 
 const express = require('express');
 const app = express();
 const path = require('path');
+
+const nunjucks = require('nunjucks');
+nunjucks.configure({ noCache: true });
 
 app.use(require('body-parser').urlencoded());
 
